@@ -40,5 +40,6 @@ def run_capm_pipeline(tickers, benchmark="^GSPC", start="2023-01-01", end="2024-
 
     betas = compute_betas_by_covariance(asset_returns, benchmark_returns)
     expected_returns = compute_expected_returns_CAPM(betas, expected_market_return, risk_free_rate)
-
-    return betas, expected_returns
+    expected_returns = pd.Series(expected_returns)
+    cov = asset_returns.cov()
+    return betas, expected_returns, cov
